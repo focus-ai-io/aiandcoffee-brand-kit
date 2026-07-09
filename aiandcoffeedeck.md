@@ -27,9 +27,11 @@ engine:
   data_dir:   "$HOME/local/AI STUFF/MeetUp - AI&Coffee/artifacts/decks/data"
 
 logo:
-  cream: "$HOME/.claude/commands/aiandcoffee-logo-cream.png"   # main, use on cream background
-  white: "$HOME/.claude/commands/aiandcoffee-logo-white.png"   # for white backgrounds
-  navy:  "$HOME/.claude/commands/aiandcoffee-logo-navy.png"    # for navy/dark backgrounds
+  default:     "$HOME/.claude/commands/aiandcoffee-logo.png"             # TRANSPARENT. Use this always by default. Works on any background.
+  transparent: "$HOME/.claude/commands/aiandcoffee-logo-transparent.png" # explicit alias for the default
+  cream:       "$HOME/.claude/commands/aiandcoffee-logo-cream.png"       # cream background baked in (rarely needed fallback)
+  white:       "$HOME/.claude/commands/aiandcoffee-logo-white.png"       # white background baked in (rarely needed)
+  navy:        "$HOME/.claude/commands/aiandcoffee-logo-navy.png"        # navy background baked in (rarely needed)
 ```
 
 ## Community defaults (bake into every deck unless user overrides)
@@ -125,10 +127,14 @@ Then generate.
 Every deck embeds the AI and Coffee logo as base64 PNG inside an `<img>` tag.
 No text-only wordmark, no pill badges.
 
+**Always use the transparent variant** (`aiandcoffee-logo.png`). It sits on any
+slide background without a visible bounding box. Only fall back to the cream
+or navy pre-baked variants if the transparent one is missing.
+
 Before generating, run this from the shell to get the base64 data URI:
 
 ```bash
-python3 -c "import base64,sys; p='$HOME/.claude/commands/aiandcoffee-logo-cream.png'; print(f'data:image/png;base64,{base64.b64encode(open(p,\"rb\").read()).decode()}')"
+python3 -c "import base64,sys; p='$HOME/.claude/commands/aiandcoffee-logo.png'; print(f'data:image/png;base64,{base64.b64encode(open(p,\"rb\").read()).decode()}')"
 ```
 
 Store the output as `LOGO_URI`. Use it in the HTML like so:
@@ -146,11 +152,12 @@ CSS:
 .logo-sm { max-width: 220px; width: 22vw; margin-bottom: 24px; }
 ```
 
-The logo PNG has a cream background matching `--cream`, so it blends
-seamlessly. Do not try to remove or replace the background.
+The default logo PNG (`aiandcoffee-logo.png`) is transparent, so it blends on
+any slide background. Do not add a wrapper or box behind it.
 
-If the deck is on a non-cream background (e.g., navy accent slide), use the
-`navy` or `white` logo variant instead.
+Only if the transparent file is missing (bad install), fall back to the
+background-baked variant matching the slide background (cream, white, or
+navy).
 
 ## Meetup platform mark (use on CTAs)
 
@@ -514,7 +521,7 @@ NEVER:
 
 ## For team members
 
-- **Logo files.** Live at `~/.claude/commands/aiandcoffee-logo-{cream,white,navy}.png`. Copy from the brand-kit repo.
+- **Logo files.** `~/.claude/commands/aiandcoffee-logo.png` (transparent, default) plus `-transparent`, `-cream`, `-white`, `-navy` variants. Copy from the brand-kit repo.
 - **Updating the skill.** Pull latest from GitHub, re-cp the .md to `~/.claude/commands/`.
 - **Suggesting changes.** Open a PR on the brand-kit repo.
 
