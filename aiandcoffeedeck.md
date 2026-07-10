@@ -159,10 +159,14 @@ Only if the transparent file is missing (bad install), fall back to the
 background-baked variant matching the slide background (cream, white, or
 navy).
 
-## Meetup platform mark (use on CTAs)
+## Platform marks (only when a deck actually needs them)
 
-Inline SVG. Use inside every "Find us on Meetup" / "RSVP" CTA and once on the
-cover slide as a "Powered by Meetup Pro" caption.
+**Meetup mark is NOT default.** Do not add "Powered by Meetup" captions on the
+cover, and do not put the Meetup mark inside CTA buttons by default. Leave the
+Meetup mention to the text of the URL/CTA label. If a specific deck needs it
+(e.g., a dedicated "How we use Meetup" slide), use the mark below explicitly.
+
+Meetup mark (available when explicitly needed):
 
 ```html
 <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -171,7 +175,7 @@ cover slide as a "Powered by Meetup Pro" caption.
 </svg>
 ```
 
-## Other platform marks (add when a deck actually needs them)
+## Other platform marks (add only when a deck asks for them)
 
 - **LinkedIn.** `#0A66C2` rounded square, white "in".
 - **Instagram.** `#E4405F` rounded square, white camera glyph.
@@ -187,7 +191,7 @@ to our logo without an explicit co-brand lockup.
 ### community-overview (default, external audience, evergreen)
 
 8 slides.
-1. **Cover.** Logo large. Eyebrow "Community Overview. <date>. 5 chapters across Europe." Headline "Where AI-curious people meet over coffee." Lead sentence. Platform caption "Powered by Meetup Pro".
+1. **Cover.** Logo large. Eyebrow "Community Overview. <date>. 5 chapters across Europe." Headline "Where AI-curious people meet over coffee." Lead sentence.
 2. **Who we are.** Eyebrow "01. Who we are." Heading "A community, not a conference." Lead "No pitches. No lead generation. No badges on lanyards." Two cards: who shows up, how we run.
 3. **By the numbers.** Eyebrow "02. By the numbers." Heading "Eight hundred members. Five chapters. Two years in." Stat grid: 800+ members, 5 chapters, 4 formats, 0 fee.
 4. **Four ways we meet.** Eyebrow "03. Four ways we meet." Heading "Pick the one that fits your week." Numbered list of Circle, Lunch, Dinner, All-in.
@@ -293,10 +297,8 @@ above.
   .lead { font-size: clamp(17px, 1.8vw, 22px); color: var(--brown); margin-bottom: 32px; }
   .eyebrow { text-transform: uppercase; font-size: 12px; letter-spacing: 0.18em; color: var(--gold); font-weight: 600; margin-bottom: 24px; }
   .logo { display: block; height: auto; }
-  .logo-lg { max-width: 540px; width: 55vw; margin-bottom: 20px; }
-  .logo-sm { max-width: 220px; width: 22vw; margin-bottom: 24px; }
-  .meetup-mark { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--meetup-red); font-size: 15px; }
-  .platform-caption { display: inline-flex; align-items: center; gap: 10px; color: var(--brown); font-size: 13px; margin-top: 20px; letter-spacing: 0.02em; }
+  .logo-lg { max-width: 380px; width: 42vw; margin-bottom: 32px; }
+  .logo-sm { max-width: 160px; width: 16vw; margin-bottom: 24px; }
   .card { background: var(--cream-light); border: 1px solid var(--line); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -313,9 +315,10 @@ above.
   .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); transition: width 0.3s ease; z-index: 100; }
   .counter { position: fixed; bottom: 20px; right: 24px; background: var(--dark); color: var(--cream); padding: 6px 14px; border-radius: 999px; font-size: 12px; letter-spacing: 0.05em; font-family: Georgia, serif; z-index: 100; opacity: 0.8; }
   .hint { position: fixed; bottom: 20px; left: 24px; color: var(--brown); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; z-index: 100; opacity: 0.6; }
-  a.cta { display: inline-flex; align-items: center; gap: 10px; background: var(--dark); color: var(--cream); padding: 14px 26px; border-radius: 999px; text-decoration: none; font-size: 17px; margin-top: 20px; letter-spacing: 0.02em; transition: background 0.2s; }
-  a.cta:hover { background: var(--amber); }
-  a.cta .cta-mark { background: white; border-radius: 6px; padding: 3px; display: inline-flex; }
+  a.cta { display: inline-flex; align-items: center; gap: 12px; background: var(--dark); color: var(--cream); padding: 18px 34px; border-radius: 999px; text-decoration: none; font-size: 17px; margin-top: 24px; letter-spacing: 0.02em; transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 14px rgba(58, 42, 32, 0.15); font-weight: 500; }
+  a.cta:hover { background: var(--amber); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(199, 120, 50, 0.25); }
+  a.cta .arrow { display: inline-block; transition: transform 0.2s ease; }
+  a.cta:hover .arrow { transform: translateX(4px); }
   blockquote { font-family: Georgia, serif; font-style: italic; color: var(--brown); font-size: clamp(20px, 2.5vw, 28px); line-height: 1.4; border-left: 3px solid var(--gold); padding-left: 24px; margin: 24px 0; }
 </style>
 </head>
@@ -368,13 +371,6 @@ above.
     <p class="eyebrow">{{TYPE_LABEL}}. {{DATE}}. {{CHAPTER}}.</p>
     <h1>{{TITLE}}</h1>
     <p class="lead">{{LEAD}}</p>
-    <div class="platform-caption">
-      Powered by
-      <span class="meetup-mark">
-        <svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#ED1C40"/><text x="10" y="14.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" fill="white" text-anchor="middle">M</text></svg>
-        Meetup Pro
-      </span>
-    </div>
   </div>
 </section>
 ```
@@ -448,10 +444,8 @@ above.
     <h2>{{CLOSING_HEADING}}</h2>
     <p class="lead">{{CLOSING_BODY}}</p>
     <a class="cta" href="{{CTA_URL}}">
-      <span class="cta-mark">
-        <svg width="18" height="18" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#ED1C40"/><text x="10" y="14.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" fill="white" text-anchor="middle">M</text></svg>
-      </span>
       {{CTA_LABEL}}
+      <span class="arrow">&rarr;</span>
     </a>
   </div>
 </section>
