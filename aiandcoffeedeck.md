@@ -47,7 +47,7 @@ logo:
 - **Rhythm.** Weekly (Circle Sunday, Lunch Wednesday). Monthly (Dinner, All-in).
 - **Cost to member.** Free. Every event. First drink often on the house.
 - **Platform.** Meetup Pro.
-- **Meetup URL (default CTA).** `https://www.meetup.com/aiandcoffee-luxembourg-en/`
+- **Meetup URL (default CTA).** `https://www.meetup.com/ai-coffee-lu/`
 - **Tagline.** "Where AI-curious people meet over coffee."
 
 ### Voice
